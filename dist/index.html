@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<script type="text/javascript" src="main.min.js?3b2894f3be8944c2cd81"></script></head>
+<body>
+    <div id="root">
+        <div id="query" bp-data='{evt:click, dd:333}'>
+            <div>点击我会上报一条数据</div>
+        </div>
+        <div>无埋点测试</div>
+    </div>
+
+    <script>
+        var buryingPoint = BuryingPoint();
+        buryingPoint.page = 'index12';
+        // 开启白名单
+        // BP.whiteList.push('0.0.0.0');
+        // BP.send('script');
+    </script>
+</body>
+</html>
