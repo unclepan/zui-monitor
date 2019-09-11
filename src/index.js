@@ -3,7 +3,7 @@ import con from './config';
 import BP from './bp';
 import ticker from './ticker';
 
-export default function BuryingPoint() {
+export default function BuryingPoint(bury = true, tic = true) {
     // 代码埋点，声明试埋点
     var buryingPoint = function () {
         var attr = 'bp-data';
@@ -20,7 +20,7 @@ export default function BuryingPoint() {
                     if (data.evt) {
                         var event = data.evt;
                         delete data.evt;
-                        BP.send(event, data);
+                        BP.send(event, data, target);
                     }
                     break;
                 }
@@ -45,32 +45,37 @@ export default function BuryingPoint() {
      * 启动埋点
      */
     var start = function () {
-        buryingPoint();
-        
+        if(bury){
+            // 绑定声明试埋点
+            buryingPoint();
+        } else {
+            //无埋点，全局埋点
+            console.log('需要实现无埋点');
+        }
+        // 上报pv，打开页面执行，只执行一次
         BP.sendPV();
-    
-        // 启动ticker
-        ticker.start();
-        ticker.register(calStayTime);
-    
-        // 页面离开时不再计时
-        utils.addEvent(con.doc, 'visibilitychange', function () {
-            if (con.doc.visibilityState === 'hidden') {
-                ticker.stop();
-            } else {
-                ticker.start();
-            }
-        });
+        if(tic){
+            // 启动ticker（也就是定时上报）
+            ticker.start();
+            ticker.register(calStayTime);
+            // 页面离开时不再计时
+            utils.addEvent(con.doc, 'visibilitychange', function () {
+                if (con.doc.visibilityState === 'hidden') {
+                    ticker.stop();
+                } else {
+                    ticker.start();
+                }
+            });
+        } 
     };
     
     // 侦听load事件，准备启动数据上报
     utils.addEvent(con.win, 'load', function () {
         if (!utils.checkWhiteList()) {
-            console.error('域名不在白名单内', '@burying-point');
+            console.error('域名不在白名单内', '@uncle-burying-point');
             return;
         }
-    
-        console.log('即将开始上报数据');
+        console.log('埋点数据即将开始上报数据');
         start();
     });
     

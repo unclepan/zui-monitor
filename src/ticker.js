@@ -5,8 +5,8 @@ class Ticker {
     this.funcs = [];
   }
   /**
-   * 启动
-   */
+  * 启动
+  */
   start () {
       if(this.tid > 0) {
           return;
@@ -24,23 +24,23 @@ class Ticker {
       }, 33);
   }
   /**
-   * 停止
-   */
+  * 停止
+  */
   stop () {
       clearInterval(this.tid);
       this.tid = 0;
   }
   /**
-   * 注册钩子函数
-   * @param func 方法
-   */
+  * 注册钩子函数
+  * @param func 方法
+  */
   register (func) {
     this.funcs.push({ 'func': func });
   }
   /**
-   * 删除钩子函数
-   * @param func 方法
-   */
+  * 删除钩子函数
+  * @param func 方法
+  */
   unregister (func) {
       for (var i = 0; i < this.funcs.length; i++) {
           if(func === this.funcs[i].func) {

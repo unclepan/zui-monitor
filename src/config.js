@@ -1,7 +1,7 @@
 import UA from 'ua-device';// 使用ua-device库，build后体积增加近150KB，一个用于解析UA来得到用户终端信息的JS库
 
 class Con {
-  constructor(host = 'localhost:6869', cookieName = 'bp_did'){
+  constructor(host, cookieName){
     this.DAY = 86400000; // 一天的毫秒数
     this.win = window;
     this.doc = document;
@@ -18,7 +18,7 @@ class Con {
     this.totalTime = 0;
     this.stayTime = 10000; // 触发间隔30秒
   }
-  //静态方法
+  //静态方法，单例
   static getInstance(host = 'localhost:6869', cookieName = 'bp_did') {
     if(!this.instance) {
       this.instance = new Con(host, cookieName);

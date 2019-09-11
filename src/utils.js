@@ -2,8 +2,8 @@ import con from './config';
 
 class Utils {
     constructor(){
-      this.addEvent = this._addEvent()
-      this.mobile = this._mobile()
+      this.addEvent = this._addEvent();
+      this.mobile = this._mobile();
     }
     // 获取该页面对应上报数据接口的路径
     getPath () {
@@ -140,7 +140,9 @@ class Utils {
             };
         }
     }
-
+    /**
+     * 获得操作设备
+     */
     _mobile () {
         try {
           con.doc.createEvent('TouchEvent');
@@ -149,6 +151,30 @@ class Utils {
             return false;
         }
     }
+    /**
+     * 获取xpath
+     * 将触发的元素event.target传入，即可得到完整的xpath
+     * @param elem 
+     */
+    xPath(elem){
+        if(elem.id != ''){
+            return '//*[@id=\"'+elem.id+'\"]';
+        }
+        if(elem == document.body){
+            return '/html/'+elem.tagName.toLowerCase();
+        }
+        var index = 1,siblings = elem.parentNode.childNodes;
+        
+        for(var i = 0,len = siblings.length;i<len;i++){
+            var sibling = siblings[i];
+            if(sibling == elem){
+                return this.xPath(elem.parentNode)+'/'+elem.tagName.toLowerCase()+'['+(index)+']';
+            }else if(sibling.nodeType==1&&sibling.tagName == elem.tagName){
+                index++;
+            }
+        }
+    }
+    
 }
 
 

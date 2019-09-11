@@ -1,10 +1,14 @@
 {
   "name": "uncle-burying-point",
-  "version": "0.0.9",
+  "version": "0.0.13",
   "description": "前端数据埋点工具",
   "main": "./dist/main.min.js",
   "author": "yangpan",
   "license": "MIT",
+  "repository": { 
+    "type" : "git", 
+    "url" : "https://github.com/unclepan/uncle-burying-point.git"
+  },
   "scripts": {
     "dev": "webpack-dev-server --config ./webpack.config.js --mode development",
     "build": "webpack --config ./webpack.config.js --mode production"

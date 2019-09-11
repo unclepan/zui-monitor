@@ -44,7 +44,7 @@ class BP {
     * @param evt 事件
     * @param ext 扩展数据
     */
-    send (evt, ext) {
+    send (evt, ext, ele) {
         if (evt === '') {
             return;
         }
@@ -59,11 +59,16 @@ class BP {
                 extstr = 'ext={' + extstr.substr(0, extstr.length - 1) + '}';
             }
         }
+        let xPath = ''; 
+        if(ele){
+            xPath = `xPath=${utils.xPath(ele)}`;
+        }
         var url = con.baseUrl +
             utils.getPath() +
             '?evt=' + evt +
             '&' + this.getData() +
-            (extstr.length > 0 ? '&' + extstr : '');
+            (extstr.length > 0 ? '&' + extstr : '') +
+            (xPath ? '&' + xPath : '');
         utils.sendRequest(url);
     }
     set page (value) {
