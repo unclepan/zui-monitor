@@ -9,14 +9,14 @@
 <body>
     <div>
         <div>
-            <div bp-data='{evt:click, dd:111}'>点击我会上报一条数据</div>
-            <div bp-data='{evt:click, dd:222}'>22</div>
+            <div bp-data='{evt:click, test:111}'>点击我会上报一条数据</div>
+            <div bp-data='{evt:click, test:222}'>22</div>
         </div>
         <div>无埋点测试</div>
     </div>
 
     <script>
-        var buryingPoint = BuryingPoint();
+        var buryingPoint = BuryingPoint(true);
         buryingPoint.page = 'index';
         // 开启白名单
         // BP.whiteList.push('0.0.0.0');

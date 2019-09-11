@@ -5,12 +5,12 @@ import ticker from './ticker';
 
 export default function BuryingPoint(bury = true, tic = true) {
     // 代码埋点，声明试埋点
-    var buryingPoint = function () {
+    const buryingPoint = function () {
         var attr = 'bp-data';
         var evtType = utils.mobile ? 'touchstart' : 'mousedown';
         utils.addEvent(con.doc, evtType, function (evt) {
             var target = evt.srcElement || evt.target;
-            while (target && target.parentNode) {
+            while (target && target.parentNode) { // 找到最近手动埋的节点
                 if (target.hasAttribute(attr)) {
                     var metadata = target.getAttribute(attr);
                     var data = utils.parse(metadata);
@@ -28,6 +28,16 @@ export default function BuryingPoint(bury = true, tic = true) {
             }
         });
     };
+
+    const noBuryingPoint = function(){
+        var evtType = utils.mobile ? 'touchstart' : 'mousedown';
+        utils.addEvent(con.doc, evtType, function (evt) {
+            var target = evt.srcElement || evt.target;
+            var data = target.innerHTML;
+            BP.send('no', {html: data}, target);
+        });
+    }
+    
   
     /**
      * Ticker钩子函数，用于上报页面停留时长
@@ -51,6 +61,7 @@ export default function BuryingPoint(bury = true, tic = true) {
         } else {
             //无埋点，全局埋点
             console.log('需要实现无埋点');
+            noBuryingPoint();
         }
         // 上报pv，打开页面执行，只执行一次
         BP.sendPV();
