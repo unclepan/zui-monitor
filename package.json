@@ -1,8 +1,9 @@
 {
   "name": "uncle-burying-point",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "前端数据埋点工具",
   "main": "./dist/main.min.js",
+  "jsnext:main": "src/main.min.js",
   "author": "yangpan",
   "license": "MIT",
   "repository": {
