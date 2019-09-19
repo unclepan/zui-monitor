@@ -2,10 +2,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const debug = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-    entry: ['babel-polyfill', './src/index.js'],
+    devtool: debug ? 'source-map' : 'cheap-module-eval-source-map',
+    entry: ['./src/index.js'],
     // entry: ['./src/index.js'],
     output: {
       path: path.resolve(__dirname, 'dist'),
@@ -39,12 +40,5 @@ module.exports = {
         //         target: 'http://localhost:8880'
         //     }
         // }
-    },
-    optimization: {
-      minimizer: [
-        new UglifyJsPlugin({
-          include: /\.min\.js$/,
-        }),
-      ],
     },
 }
