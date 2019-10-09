@@ -29,6 +29,8 @@ export default function BuryingPoint(bury = true, tic = true) {
         });
     };
 
+
+    //无埋点或者说是全埋点
     const noBuryingPoint = function(){
         var evtType = utils.mobile ? 'touchstart' : 'mousedown';
         utils.addEvent(con.doc, evtType, function (evt) {
@@ -60,7 +62,6 @@ export default function BuryingPoint(bury = true, tic = true) {
             buryingPoint();
         } else {
             //无埋点，全局埋点
-            console.log('需要实现无埋点');
             noBuryingPoint();
         }
         // 上报pv，打开页面执行，只执行一次
