@@ -90,7 +90,10 @@ export default function BuryingPoint(opt) {
         } 
         // 监测一次性能监控
         if(options.per){
-            _PerConstructor.start('console');
+            setTimeout(()=>{
+                const _Per = new _PerConstructor();
+                _Per.start('console');
+            },0); 
         }  
     };
     
@@ -103,6 +106,6 @@ export default function BuryingPoint(opt) {
         console.log('埋点数据即将开始上报数据');
         start();
     });
-    
+
     return BP;
 }

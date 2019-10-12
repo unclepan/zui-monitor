@@ -1,5 +1,6 @@
 /**
   前端性能监控方案
+  https://www.cnblogs.com/bldxh/p/6857324.html
 */
 
 import utils from './utils';
@@ -47,6 +48,7 @@ class Per{
     
     // 收集数据
     _init(){
+      // 从输入url到用户可以使用页面的全过程时间统计，会返回一个PerformanceTiming对象，单位均为毫秒
       this.timing = window.performance.timing;
       this.enteriesResouceData = window.performance.getEntriesByType('resource')
     }
@@ -62,7 +64,7 @@ class Per{
       }
       return data
     }
-    _setEnteries(enteriesResouceData){
+    _setEnteries(enteriesResouceData){ // 资源请求的时间数据
       var _imageRes = [];
       var _jsRes = [];
       var _cssRes = [];
@@ -109,4 +111,4 @@ class Per{
 }
 
 
-export default new Per();
+export default Per;
