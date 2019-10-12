@@ -174,7 +174,59 @@ class Utils {
             }
         }
     }
-    
+
+    //以下是前端性能监控用到的部分
+    isObject(what) {
+        return typeof what === 'object' && what !== null;
+    }
+    formatMs(timeGap){
+        if ( typeof(timeGap) !== 'number' ){
+            return
+        }
+        if (timeGap > 1000 ){
+            return (timeGap/1000).toFixed(2) + 's'
+        }
+        return Math.round(timeGap) + 'ms'
+    }
+    isImg(name){  
+        if (/\.(gif|jpg|jpeg|png|webp)/i.test(name)) {  
+          return true;  
+        }  
+        return false;  
+    }
+    isJs(name){  
+        if (/\.(js)/i.test(name)) {  
+          return true;  
+        }  
+        return false;  
+    }
+    isCss(name){  
+        if (/\.(css)/i.test(name)) {  
+          return true;  
+        }  
+        return false;  
+    }
+    isVideo(name){  
+        if (/\.(mp4|rm|rmvb|mkv|avi|flv|ogv|webm)/i.test(name)) {  
+          return true;  
+        }  
+        return false;  
+    }
+    checkResourceType(name){
+        if (/\.(gif|jpg|jpeg|png|webp|svg)/i.test(name)) {  
+          return 'image';  
+        }
+        if (/\.(js)/i.test(name)) {  
+          return 'javascript';  
+        }
+        if (/\.(css)/i.test(name)) {  
+          return 'css';  
+        }  
+        if (/\.(mp4|rm|rmvb|mkv|avi|flv|ogv|webm)/i.test(name)) {  
+          return 'video';  
+        } 
+        return 'other'
+    }
 }
 
 

@@ -2,8 +2,17 @@ import utils from './utils';
 import con from './config';
 import BP from './bp';
 import ticker from './ticker';
+import _PerConstructor from './performance';
 
-export default function BuryingPoint(bury = true, tic = true) {
+export default function BuryingPoint(opt) {
+    /**
+    * 初始化参数
+    * @param bury 是否是声明式埋点
+    * @param tic 是否启动定时上报
+    * @param per 性能监控，默认不监控
+    */
+    const options = Object.assign({ bury: true, tic: true, per: false }, opt);
+
     // 代码埋点，声明试埋点
     const buryingPoint = function () {
         var attr = 'bp-data';
@@ -57,7 +66,7 @@ export default function BuryingPoint(bury = true, tic = true) {
      * 启动埋点
      */
     var start = function () {
-        if(bury){
+        if(options.bury){
             // 绑定声明试埋点
             buryingPoint();
         } else {
@@ -66,7 +75,7 @@ export default function BuryingPoint(bury = true, tic = true) {
         }
         // 上报pv，打开页面执行，只执行一次
         BP.sendPV();
-        if(tic){
+        if(options.tic){
             // 启动ticker（也就是定时上报）
             ticker.start();
             ticker.register(calStayTime);
@@ -79,6 +88,10 @@ export default function BuryingPoint(bury = true, tic = true) {
                 }
             });
         } 
+        // 监测一次性能监控
+        if(options.per){
+            _PerConstructor.start('console');
+        }  
     };
     
     // 侦听load事件，准备启动数据上报

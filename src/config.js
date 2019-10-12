@@ -14,7 +14,7 @@ class Con {
     this.cookieName = cookieName;// cookie名称，前后端需要协商定义
     this.year = 365;
     this.whiteList = [];
-    this.uaOutput = new UA(this.ua);
+    this.uaOutput = new UA(this.ua);// 解析ua
     this.totalTime = 0;
     this.stayTime = 10000; // 触发间隔30秒
   }
