@@ -2,6 +2,7 @@ import UUID from 'uuid-js';
 import utils from './utils';
 import con from './config';
 import CI from './ci';
+import EP from './ep';
 
 // 暴露给全局调用的
 class BP {
@@ -29,6 +30,7 @@ class BP {
 
         return {
             ...CI,
+            ...EP,
             t: new Date().getTime(),
             href: encodeURIComponent(utils.stringSplice(source, 'href', '?', '')),
             ref: encodeURIComponent(utils.stringSplice(con.doc.referrer, 'ref', '?', '')),
@@ -54,15 +56,18 @@ class BP {
         if (!(ext instanceof Object)) {
             return;
         }
-        let xPath = ''; 
+        let xPath, css;
         if(ele){
-            xPath = {xPath: utils.xPath(ele)};
+            xPath = { xPath: utils.xPath(ele) };
+            css = { css: utils.getStyle(ele) };
         }
+        console.log(css);
         const obj = {
             evt,
             ...this.getData(),
             ...ext,
-            ...xPath
+            ...xPath,
+            // ...css
         }
         con.queueData.push(obj);
     }
@@ -70,11 +75,12 @@ class BP {
         utils.sendRequest(con.baseUrl, con.queueData);
         con.queueData = []; // 清空队列数据
     }
-    set page (value) {
-      con.page = value;
+
+    set external(value) {
+        EP.setUp(value);
     }
-    get page () {
-        return con.page;
+    get external () {
+        return EP;
     }
     // 设置白名单
     set whiteList (value) { 

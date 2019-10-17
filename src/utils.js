@@ -68,10 +68,10 @@ class Utils {
             console.error('域名不在白名单内', '@burying-point');
             return;
         }
-        if (con.page.length === 0) {
-            console.error('请配置有效的page参数', '@burying-point');
-            return;
-        }
+        // if (con.page.length === 0) {
+        //     console.error('请配置有效的page参数', '@burying-point');
+        //     return;
+        // }
         ajax.ajax({
             url,
             type:'post',
@@ -187,6 +187,14 @@ class Utils {
             }else if(sibling.nodeType==1&&sibling.tagName == elem.tagName){
                 index++;
             }
+        }
+    }
+
+    getStyle(obj) {
+        if(obj.currentStyle) {// 兼容IE
+          return obj.currentStyle;
+        } else { // 兼容火狐谷歌
+          return con.win.getComputedStyle(obj, false);
         }
     }
     /**

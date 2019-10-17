@@ -1,6 +1,7 @@
 import utils from './utils';
 import con from './config';
 import BP from './bp';
+import EP from './ep';
 import ticker from './ticker';
 import _PerConstructor from './performance';
 
@@ -8,6 +9,7 @@ export default function BuryingPoint(opt) {
     /**
     * 初始化参数
     * @param bury 监控模式（无埋点=>1，声明式埋点=>2，两种都支持=>3）
+    * @param level 监控级别（默认为1）
     * @param tic 是否启动定时上报
     * @param per 性能监控，默认不监控
     * @param appId 业务系统ID(*必填)
@@ -20,6 +22,7 @@ export default function BuryingPoint(opt) {
     */
     const options = Object.assign({//合并参数
         bury: 3,
+        level: '1',
         tic: true, 
         per: false,
         appId: '',
@@ -30,37 +33,44 @@ export default function BuryingPoint(opt) {
         stayTime: 5000
     }, opt);
 
+    if(options.appId === '' || options.appName === ''){
+        return console.error('埋点启动失败，请正确配置appId或者appName！');
+    }
     // 初始化配置参数
     (function(){
         con.baseUrl = options.baseUrl;
+        EP.appId = options.appId; 
+        EP.appName = options.appName; 
     })();
 
     // 代码埋点，声明试埋点
     const buryingPoint = function () {
-        var attr = 'data-moni';
-        var evtType = utils.mobile ? 'touchstart' : 'mousedown';
+        let attr = 'data-moni';
+        let evtType = utils.mobile ? 'touchstart' : 'mousedown';
         utils.addEvent(con.doc, evtType, function (evt) {
-            var target =  evt.srcElement || evt.target;
+            let target =  evt.srcElement || evt.target;
             while (target && target.parentNode) { // 找到最近手动埋的节点
                 if (target.hasAttribute(attr)) {
-                    var metadata = target.getAttribute(attr);
-                    var data = utils.parse(metadata);
+                    let metadata = target.getAttribute(attr);
+                    let data = utils.parse(metadata);
                     if (target.nodeName.toLowerCase() === 'a') {
                         data.href = encodeURIComponent(target.href);
                     }
-                    if (data.evt) {
-                        var event = data.evt;
+                    const lev = options.level === data.level || !data.level;
+                    if (data.evt && lev) {
+                        let event = data.evt;
                         delete data.evt;
-                        BP.pushQueueData(event, data, target);
+                        let html = target.innerHTML;
+                        BP.pushQueueData(event, {html, ...data}, target);
                     }
                     break;
                 }
                 target = target.parentNode;
             }
             if(target === document && options.bury === 3){ // 没有绑定属性
-                var t =  evt.srcElement || evt.target;
-                var html = t.innerHTML;
-                BP.pushQueueData('no', {html}, t);
+                let t =  evt.srcElement || evt.target;
+                let html = t.innerHTML;
+                BP.pushQueueData('no', { html }, t);
             }
         });
     };
@@ -68,10 +78,10 @@ export default function BuryingPoint(opt) {
 
     //无埋点或者说是全埋点
     const noBuryingPoint = function(){
-        var evtType = utils.mobile ? 'touchstart' : 'mousedown';
+        let evtType = utils.mobile ? 'touchstart' : 'mousedown';
         utils.addEvent(con.doc, evtType, function (evt) {
-            var target = evt.srcElement || evt.target;
-            var data = target.innerHTML;
+            let target = evt.srcElement || evt.target;
+            let data = target.innerHTML;
             BP.pushQueueData('no', {html: data}, target);
         });
     }
@@ -81,7 +91,7 @@ export default function BuryingPoint(opt) {
      * Ticker钩子函数，用于上报页面停留时长
      * @param dt 间隔时间
      */
-    var calStayTime = function (dt) {
+    const calStayTime = function (dt) {
         con.totalTime += dt;
         if(con.totalTime >= con.stayTime) {
             BP.pushQueueData('stay', { time: con.stayTime });
@@ -93,14 +103,14 @@ export default function BuryingPoint(opt) {
     /**
      * 启动埋点
      */
-    var start = function () {
+    const start = function () {
         // 绑定dom事件
         if(options.bury === 1){
             noBuryingPoint();
         }else if(options.bury === 2 || options.bury === 3){
             buryingPoint();
         } else {
-            console.error('请正确配置bury参数，无埋点=>1，声明式埋点=>2，两种都支持=>3')
+            console.error('请正确配置bury参数，无埋点=>1，声明式埋点=>2，两种都支持=>3');
         }
         // 上报pv，打开页面执行，只执行一次
         BP.sendPV();

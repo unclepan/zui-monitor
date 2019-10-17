@@ -3,11 +3,11 @@ import con from './config';
  // 浏览器信息
 class CI {
   constructor(){
-    this.size = this._size();
-    this.network = this._network();
-    this.language = this._language();
-    this.timezone = this._timezone();
-    this.ua = this._ua();
+    // this.size = this._size();
+    // this.network = this._network();
+    // this.language = this._language();
+    // this.timezone = this._timezone();
+    // this.ua = this._ua();
     this.os = this._os();
     this.browser = this._browser();
     this.engine = this._engine();

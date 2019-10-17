@@ -74,9 +74,9 @@ class Ajax {
     //options.success成功之后的回调函数  options.error失败后的回调函数
     //xhr.responseText,xhr.responseXML  获得字符串形式的响应数据或者XML形式的响应数据
     xhr.onreadystatechange=function(){
-        if(xhr.readyState==4){
+        if(xhr.readyState == 4){
             var status=xhr.status;
-            if(status>=200&& status<300 || status==304){
+            if(status >= 200&& status < 300 || status == 304){
               options.success&&options.success(xhr.responseText,xhr.responseXML);
             }else{
                 options.error&&options.error(status);
