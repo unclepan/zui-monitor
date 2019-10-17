@@ -28,21 +28,21 @@ class Ajax {
     var arr=[];
     for(var name in data){
       // 排除原型中属性
-      if (Object.prototype.hasOwnProperty.call(data, 'name')) {
+      if (Object.prototype.hasOwnProperty.call(data, name)) {
         // 对查询字符串中每个参数名称和值用encdoeURIComponent()进行编码
         arr.push(encodeURIComponent(name)+"="+encodeURIComponent(data[name]));
       }
     }
     //时间戳
-    arr.push(("v="+Math.random()).replace(".",""));
+    // arr.push(("v="+Math.random()).replace(".",""));
     return arr.join("&");
 
   }
   _ajax(options){
     options = options || {};  //调用函数时如果options没有指定，就给它赋值{},一个空的Object
-    options.type=(options.type || "GET").toUpperCase();/// 请求格式GET、POST，默认为GET
-    options.dataType=options.dataType || "json";    //响应数据格式，默认json
-    var params=this._formatParams(options.data);//options.data请求的数据
+    options.type = (options.type || "GET").toUpperCase();/// 请求格式GET、POST，默认为GET
+    options.dataType = options.dataType || "json";    //响应数据格式，默认json
+    var params = this._formatParams(options.data); // options.data请求的数据
     var xhr;
     //考虑兼容性
     if(window.XMLHttpRequest){

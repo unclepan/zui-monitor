@@ -24,52 +24,51 @@ class BP {
     }
     // 获取基础数据，包括浏览器数据，时间戳
     getData () {
-        var ci = utils.json2Query(CI);
-        var t = 't=' + new Date().getTime();
         var arr = con.win.location.href.split('//');
         var source = arr.length > 1 ? arr[1] : arr[0];
-        // 去除参数
-        var href = 'href=' + encodeURIComponent(utils.stringSplice(source, 'href', '?', ''));
-        var ref = 'ref=' + encodeURIComponent(utils.stringSplice(con.doc.referrer, 'ref', '?', ''));
-        var sid = 'sessionId=' + this.sessionId;
-        var did = 'deviceId=' + this.deviceId;
-        return ci + '&' + t + '&' + href + '&' + ref + '&' + sid + '&' + did;
+
+        return {
+            ...CI,
+            t: new Date().getTime(),
+            href: encodeURIComponent(utils.stringSplice(source, 'href', '?', '')),
+            ref: encodeURIComponent(utils.stringSplice(con.doc.referrer, 'ref', '?', '')),
+            sessionId: this.sessionId,
+            deviceId: this.deviceId
+        };
     }
     // 上报pv
     sendPV () {
-        this.send('visit');
+        this.pushQueueData('visit');
+        this.send();
     }
     /**
     * 上报数据
     * @param evt 事件
     * @param ext 扩展数据
     */
-    send (evt, ext, ele) {
+    //pushQueueData
+    pushQueueData (evt, ext = {}, ele) {
         if (evt === '') {
             return;
         }
-        var extstr = '';
-        if (ext) {
-            for (var i in ext) {
-                if (Object.prototype.hasOwnProperty.call(ext, i)) {
-                    extstr += '"' + i + '":"' + ext[i] + '",';
-                }
-            }
-            if (extstr.length > 0) {
-                extstr = 'ext={' + extstr.substr(0, extstr.length - 1) + '}';
-            }
+        if (!(ext instanceof Object)) {
+            return;
         }
         let xPath = ''; 
         if(ele){
-            xPath = `xPath=${utils.xPath(ele)}`;
+            xPath = {xPath: utils.xPath(ele)};
         }
-        var url = con.baseUrl +
-            utils.getPath() +
-            '?evt=' + evt +
-            '&' + this.getData() +
-            (extstr.length > 0 ? '&' + extstr : '') +
-            (xPath ? '&' + xPath : '');
-        utils.sendRequest(url);
+        const obj = {
+            evt,
+            ...this.getData(),
+            ...ext,
+            ...xPath
+        }
+        con.queueData.push(obj);
+    }
+    send(){
+        utils.sendRequest(con.baseUrl, con.queueData);
+        con.queueData = []; // 清空队列数据
     }
     set page (value) {
       con.page = value;

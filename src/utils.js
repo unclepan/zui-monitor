@@ -1,4 +1,5 @@
 import con from './config';
+import ajax from './ajax';
 
 class Utils {
     constructor(){
@@ -11,6 +12,7 @@ class Utils {
     }
     /**
     * 将json结构转为字符串
+    * get 形式的上报会用到
     * @param json 数据对象
     */
     json2Query (json) {
@@ -61,7 +63,7 @@ class Utils {
     * 发送请求，使用image标签跨域
     * @param url 接口地址
     */
-    sendRequest (url) {
+    sendRequest (url, data) {
         if (!this.checkWhiteList()) {
             console.error('域名不在白名单内', '@burying-point');
             return;
@@ -70,8 +72,21 @@ class Utils {
             console.error('请配置有效的page参数', '@burying-point');
             return;
         }
-        var img = new Image();
-        img.src = url;
+        ajax.ajax({
+            url,
+            type:'post',
+            data: {data: JSON.stringify(data)},
+            dataType: 'json',
+            timeout:10000,
+            contentType: "application/json",
+            success: function(data){
+              console.log(`上报成功${data}`);
+            },
+            //异常处理
+            error:function(e){
+              console.error(`上报失败${e}`);
+            }
+        })
     }
     /**
     * 设置cookie
@@ -145,7 +160,7 @@ class Utils {
      */
     _mobile () {
         try {
-          con.doc.createEvent('TouchEvent');
+            con.doc.createEvent('TouchEvent');
             return true;
         } catch (e) {
             return false;

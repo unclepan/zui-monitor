@@ -1,4 +1,4 @@
 {
   "presets": ["env"],
-  "plugins": ["transform-runtime", "transform-decorators-legacy"]
+  "plugins": ["transform-runtime", "transform-decorators-legacy", "syntax-object-rest-spread"]
 }
