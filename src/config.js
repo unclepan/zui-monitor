@@ -16,7 +16,7 @@ class Con {
     this.whiteList = [];
     this.uaOutput = new UA(this.ua);// 解析ua
     this.totalTime = 0;
-    this.stayTime = 10000; // 触发间隔30秒
+    this.stayTime = 10000; // 触发间隔5秒
   }
   //静态方法，单例
   static getInstance(host = 'localhost:6869', cookieName = 'bp_did') {

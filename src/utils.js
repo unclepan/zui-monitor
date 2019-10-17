@@ -111,7 +111,7 @@ class Utils {
         }
     }
     /**
-    * 解析bp-data中的数据
+    * 解析data-moni中的数据
     * @param datastr 
     */
     parse (datastr) {
@@ -173,6 +173,31 @@ class Utils {
                 index++;
             }
         }
+    }
+    /**
+     * 对字符串进行加密 
+     * @param code 
+     */
+    compileStr(code){       
+        var c=String.fromCharCode(code.charCodeAt(0)+code.length);
+       for(var i=1;i<code.length;i++)
+        {      
+         c+=String.fromCharCode(code.charCodeAt(i)+code.charCodeAt(i-1));
+       }   
+       return escape(c);   
+    }
+    /**
+     * 字符串进行解密 
+     * @param code 
+     */
+    uncompileStr(code){      
+        code=unescape(code);      
+        var c=String.fromCharCode(code.charCodeAt(0)-code.length);      
+        for(var i=1;i<code.length;i++)
+        {      
+         c+=String.fromCharCode(code.charCodeAt(i)-c.charCodeAt(i-1));      
+        }      
+        return c;   
     }
 
     //以下是前端性能监控用到的部分

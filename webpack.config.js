@@ -7,7 +7,6 @@ const debug = process.env.NODE_ENV !== 'production';
 module.exports = {
     devtool: debug ? 'source-map' : 'cheap-module-eval-source-map',
     entry: ['./src/index.js'],
-    // entry: ['./src/index.js'],
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: '[name].min.js', // 表示打包出来文件名叫什么

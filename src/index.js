@@ -7,18 +7,35 @@ import _PerConstructor from './performance';
 export default function BuryingPoint(opt) {
     /**
     * 初始化参数
-    * @param bury 是否是声明式埋点
+    * @param bury 监控模式（无埋点=>1，声明式埋点=>2，两种都支持=>3）
     * @param tic 是否启动定时上报
     * @param per 性能监控，默认不监控
+    * @param appId 业务系统ID(*必填)
+    * @param appName 业务系统NAME(*必填)
+    * @param encrypt 上报的信息是否加密(默认加密)
+    * @param compress 上报的信息是否压缩(默认压缩)
+    * @param host 监控信息接收的地址
+    * @param stayTime 发送监控信息的时间间隔
+
     */
-    const options = Object.assign({ bury: true, tic: true, per: false }, opt);
+    const options = Object.assign({//合并参数
+        bury: 3,
+        tic: true, 
+        per: false,
+        appId: '',
+        appName: '',
+        encrypt: true,
+        compress: true,
+        host: '',
+        stayTime: 5000
+    }, opt);
 
     // 代码埋点，声明试埋点
     const buryingPoint = function () {
-        var attr = 'bp-data';
+        var attr = 'data-moni';
         var evtType = utils.mobile ? 'touchstart' : 'mousedown';
         utils.addEvent(con.doc, evtType, function (evt) {
-            var target = evt.srcElement || evt.target;
+            var target =  evt.srcElement || evt.target;
             while (target && target.parentNode) { // 找到最近手动埋的节点
                 if (target.hasAttribute(attr)) {
                     var metadata = target.getAttribute(attr);
@@ -34,6 +51,11 @@ export default function BuryingPoint(opt) {
                     break;
                 }
                 target = target.parentNode;
+            }
+            if(target === document && options.bury === 3){ // 没有绑定属性
+                var t =  evt.srcElement || evt.target;
+                var html = t.innerHTML;
+                BP.send('no', {html}, t);
             }
         });
     };
@@ -66,12 +88,13 @@ export default function BuryingPoint(opt) {
      * 启动埋点
      */
     var start = function () {
-        if(options.bury){
-            // 绑定声明试埋点
+        // 绑定dom事件
+        if(options.bury === 1){
+            noBuryingPoint();
+        }else if(options.bury === 2 || options.bury === 3){
             buryingPoint();
         } else {
-            //无埋点，全局埋点
-            noBuryingPoint();
+            console.log('请正确配置bury参数，无埋点=>1，声明式埋点=>2，两种都支持=>3')
         }
         // 上报pv，打开页面执行，只执行一次
         BP.sendPV();
@@ -88,6 +111,7 @@ export default function BuryingPoint(opt) {
                 }
             });
         } 
+
         // 监测一次性能监控
         if(options.per){
             setTimeout(()=>{
