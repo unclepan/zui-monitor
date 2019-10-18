@@ -1,5 +1,11 @@
 # uncle-burying-point
 
+## 项目简介
+- 前端监控方案
+- 可监控三类信息：行为监控，性能监控，页面错误监控。
+- 按信息分类分成五类上报的事件类型，行为监控包含：点击事件（click），页面进入事件（stay），页面关闭事件（close）。性能监控包含：监控事件（per）。页面错误包含：错误（error）。
+- 不依赖开发形式与框架 。
+
 开发
 ```shell
 $ npm install
@@ -17,13 +23,27 @@ Using npm:
 $ npm i -g npm
 $ npm i uncle-burying-point
 ```
+
+
+```html
+var buryingPoint = BuryingPoint({
+    per: false,
+    jsErr: false,
+    appId: '12345',
+    appName: '测试系统',
+    level: '1',
+    tic: true
+});
+
+// 实例化后追加额外参数
+buryingPoint.external = {userId: 'yangpan', appId:'123'};
+console.log(buryingPoint.external);
+
+// 开启白名单
+BP.whiteList.push('0.0.0.0');
+```
 Note: add --save if you are using npm < 5.0.0
 
-## 项目简介
-- 前端监控方案
-- 可监控三类信息：行为监控，性能监控，页面错误监控。
-- 按信息分类分成五类上报的事件类型，行为监控包含：点击事件（click），页面进入事件（stay），页面关闭事件（close）。性能监控包含：监控事件（per）。页面错误包含：错误（error）。
-- 不依赖开发形式与框架 。
 
 ## 使用说明
 
@@ -67,6 +87,7 @@ Note: add --save if you are using npm < 5.0.0
 
 ## 更新日志
 暂无更新
+
 ## 注意事项
 本项目基于`webpack4`版本。
 
