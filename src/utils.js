@@ -223,7 +223,6 @@ class Utils {
         return c;   
     }
 
-    //以下是前端性能监控用到的部分
     isObject(what) {
         return typeof what === 'object' && what !== null;
     }
@@ -238,44 +237,52 @@ class Utils {
     }
     isImg(name){  
         if (/\.(gif|jpg|jpeg|png|webp)/i.test(name)) {  
-          return true;  
+            return true;  
         }  
         return false;  
     }
     isJs(name){  
         if (/\.(js)/i.test(name)) {  
-          return true;  
+            return true;  
         }  
         return false;  
     }
     isCss(name){  
         if (/\.(css)/i.test(name)) {  
-          return true;  
+            return true;  
         }  
         return false;  
     }
     isVideo(name){  
         if (/\.(mp4|rm|rmvb|mkv|avi|flv|ogv|webm)/i.test(name)) {  
-          return true;  
+            return true;  
+        }  
+        return false;  
+    }
+    isFonts(name){  
+        if (/\.(woff2?|eot|ttf|otf)/i.test(name)) {  
+            return true;  
         }  
         return false;  
     }
     checkResourceType(name){
         if (/\.(gif|jpg|jpeg|png|webp|svg)/i.test(name)) {  
-          return 'image';  
+            return 'image';  
         }
         if (/\.(js)/i.test(name)) {  
-          return 'javascript';  
+            return 'javascript';  
         }
         if (/\.(css)/i.test(name)) {  
-          return 'css';  
+            return 'css';  
         }  
         if (/\.(mp4|rm|rmvb|mkv|avi|flv|ogv|webm)/i.test(name)) {  
-          return 'video';  
+            return 'video';  
+        } 
+        if (/\.(woff2?|eot|ttf|otf)/i.test(name)) {  
+            return 'fonts';  
         } 
         return 'other'
     }
 }
-
 
 export default new Utils();

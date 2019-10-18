@@ -48,7 +48,6 @@ class BP {
     * @param evt 事件
     * @param ext 扩展数据
     */
-    //pushQueueData
     pushQueueData (evt, ext = {}, ele) {
         if (evt === '') {
             return;
@@ -56,12 +55,11 @@ class BP {
         if (!(ext instanceof Object)) {
             return;
         }
-        let xPath, css;
+        let xPath; /* css */
         if(ele){
             xPath = { xPath: utils.xPath(ele) };
-            css = { css: utils.getStyle(ele) };
+            // css = { css: utils.getStyle(ele) };
         }
-        console.log(css);
         const obj = {
             evt,
             ...this.getData(),
@@ -72,8 +70,10 @@ class BP {
         con.queueData.push(obj);
     }
     send(){
-        utils.sendRequest(con.baseUrl, con.queueData);
-        con.queueData = []; // 清空队列数据
+        if(con.queueData.length > 0){
+            utils.sendRequest(con.baseUrl, con.queueData);
+            con.queueData = []; // 清空队列数据
+        }  
     }
 
     set external(value) {

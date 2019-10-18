@@ -3,7 +3,7 @@ import con from './config';
 import BP from './bp';
 import EP from './ep';
 import ticker from './ticker';
-import _PerConstructor from './performance';
+import PerConstructor from './performance';
 
 export default function BuryingPoint(opt) {
     /**
@@ -82,7 +82,7 @@ export default function BuryingPoint(opt) {
         utils.addEvent(con.doc, evtType, function (evt) {
             let target = evt.srcElement || evt.target;
             let data = target.innerHTML;
-            BP.pushQueueData('no', {html: data}, target);
+            BP.pushQueueData('no', { html: data }, target);
         });
     }
     
@@ -112,9 +112,8 @@ export default function BuryingPoint(opt) {
         } else {
             console.error('请正确配置bury参数，无埋点=>1，声明式埋点=>2，两种都支持=>3');
         }
-        // 上报pv，打开页面执行，只执行一次
-        BP.sendPV();
 
+        // 事件轮询系统
         if(options.tic){
             // 启动ticker（也就是定时上报）
             ticker.start();
@@ -128,14 +127,14 @@ export default function BuryingPoint(opt) {
                 }
             });
         } 
-
+        
         // 监测一次性能监控
-        if(options.per){
-            setTimeout(()=>{
-                const _Per = new _PerConstructor();
-                _Per.start('console');
-            },0); 
+        if(options.per){  
+            const Per = new PerConstructor();
+            Per.start('pushQueueData');
         }  
+        // 上报pv，打开页面执行，只执行一次
+        BP.sendPV();
     };
     
     // 侦听load事件，准备启动数据上报
@@ -145,7 +144,9 @@ export default function BuryingPoint(opt) {
             return;
         }
         console.log('埋点数据即将开始上报数据');
-        start();
+        setTimeout(()=>{
+            start();
+        }, 0); 
     });
 
     return BP;
