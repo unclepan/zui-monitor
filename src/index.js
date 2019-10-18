@@ -36,10 +36,12 @@ export default function BuryingPoint(opt) {
     }, opt);
 
     if(options.appId === '' || options.appName === ''){
-        return console.error('埋点启动失败，请正确配置appId或者appName！');
+        console.error('埋点启动失败，请正确配置appId或者appName！');
+        return {};
     }
     if(options.stayTime < 5000 || typeof options.stayTime !== 'number'){
-        return console.error('埋点启动失败，请正确配置stayTime！stayTime不得小于5000且必须是数字类型');
+        console.error('埋点启动失败，请正确配置stayTime！stayTime不得小于5000且必须是数字类型');
+        return {};
     }
 
     // 初始化配置参数
