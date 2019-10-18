@@ -91,7 +91,7 @@ export default function BuryingPoint(opt) {
             if(target === document && options.bury === 3){ // 没有绑定属性
                 let t =  evt.srcElement || evt.target;
                 let html = t.innerHTML;
-                BP.pushQueueData('no', { html }, t);
+                BP.pushQueueData('click', { html }, t);
             }
         });
     };
@@ -103,7 +103,7 @@ export default function BuryingPoint(opt) {
         utils.addEvent(con.doc, evtType, function (evt) {
             let target = evt.srcElement || evt.target;
             let data = target.innerHTML;
-            BP.pushQueueData('no', { html: data }, target);
+            BP.pushQueueData('click', { html: data }, target);
         });
     }
     
