@@ -1,6 +1,6 @@
 {
   "name": "uncle-burying-point",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "前端数据埋点工具",
   "main": "./dist/main.min.js",
   "jsnext:main": "src/main.min.js",

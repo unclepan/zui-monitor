@@ -15,7 +15,7 @@ $ npm run dev
 
 In a browser:
 ```html
-<script src="lmain.min.js"></script>
+<script src="main.min.js"></script>
 ```
 
 Using npm:
