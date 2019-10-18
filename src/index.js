@@ -46,7 +46,7 @@ export default function BuryingPoint(opt) {
     })();
 
     // 前端错误上报
-    if(options.jsErr){
+    if(options.jsErr) {
         window.onerror = function(msg, url, line, col, error) {
             let errobj = {
                 msg: `错误：${msg}`,
@@ -128,7 +128,6 @@ export default function BuryingPoint(opt) {
         } else {
             console.error('请正确配置bury参数，无埋点=>1，声明式埋点=>2，两种都支持=>3');
         }
-
         // 事件轮询系统
         if(options.tic){
             // 启动ticker（也就是定时上报）

@@ -33,7 +33,7 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, './dist'),
         open: true,
-        port: 9090,
+        port: 9091,
         // proxy: {
         //     '/api/*':{
         //         target: 'http://localhost:8880'
