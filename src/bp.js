@@ -27,14 +27,13 @@ class BP {
     getData () {
         var arr = con.win.location.href.split('//');
         var source = arr.length > 1 ? arr[1] : arr[0];
-
         return {
             ...CI,
             ...EP,
             t: new Date().getTime(),
             href: encodeURIComponent(utils.stringSplice(source, 'href', '?', '')),
             ref: encodeURIComponent(utils.stringSplice(con.doc.referrer, 'ref', '?', '')),
-            sessionId: this.sessionId,
+            sessionId: `${this.sessionId}`,
             deviceId: this.deviceId
         };
     }

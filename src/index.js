@@ -12,6 +12,7 @@ export default function BuryingPoint(opt) {
     * @param level 监控级别（默认为1）
     * @param tic 是否启动定时上报
     * @param per 性能监控，默认不监控
+    * @param jsErr js错误监控
     * @param appId 业务系统ID(*必填)
     * @param appName 业务系统NAME(*必填)
     * @param encrypt 上报的信息是否加密(默认加密)
@@ -25,6 +26,7 @@ export default function BuryingPoint(opt) {
         level: '1',
         tic: true, 
         per: false,
+        jsErr: false,
         appId: '',
         appName: '',
         encrypt: true,
@@ -42,6 +44,20 @@ export default function BuryingPoint(opt) {
         EP.appId = options.appId; 
         EP.appName = options.appName; 
     })();
+
+    // 前端错误上报
+    if(options.jsErr){
+        window.onerror = function(msg, url, line, col, error) {
+            let errobj = {
+                msg: `错误：${msg}`,
+                url: `URL：${url}`,
+                line: `行：${line}`,
+                col: `列：${col}`,
+                error: `错误对象：${error}`
+            };
+            BP.pushQueueData('error', { jsErr: errobj, err: '前端错误上报' });
+        }
+    }
 
     // 代码埋点，声明试埋点
     const buryingPoint = function () {
@@ -148,6 +164,5 @@ export default function BuryingPoint(opt) {
             start();
         }, 0); 
     });
-
     return BP;
 }
