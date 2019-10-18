@@ -38,8 +38,13 @@ export default function BuryingPoint(opt) {
     if(options.appId === '' || options.appName === ''){
         return console.error('埋点启动失败，请正确配置appId或者appName！');
     }
+    if(options.stayTime < 5000 || typeof options.stayTime !== 'number'){
+        return console.error('埋点启动失败，请正确配置stayTime！stayTime不得小于5000且必须是数字类型');
+    }
+
     // 初始化配置参数
     (function(){
+        con.stayTime = options.stayTime;
         con.baseUrl = options.baseUrl;
         EP.appId = options.appId; 
         EP.appName = options.appName; 
