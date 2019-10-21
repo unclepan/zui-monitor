@@ -58,7 +58,6 @@ Note: add --save if you are using npm < 5.0.0
 
 ## 说明
 - 初始化参数
-
 ```
 * @param bury 监控模式（无埋点=>1，声明式埋点=>2，两种都支持=>3）
 * @param level 监控级别（默认为1， 只有当dom上定义的level属性不传或者与全局初始化传入的一致，此节点才会绑定监听）
@@ -71,6 +70,150 @@ Note: add --save if you are using npm < 5.0.0
 * @param baseUrl 监控信息接收的后端接口地址
 * @param stayTime 发送监控信息的时间间隔（只在tic为true才有效）
 ```
+
+上报的五种json格式
+- 页面统计pv的json
+```
+{
+  "evt": "visit",
+  "os": "Mac%20OS%20X_10.12.6",
+  "browser": "Chrome_77.0.3865.120",
+  "engine": "Webkit_537.36",
+  "lbs": {
+  "longtitude": "116.310807",
+  "latitude": "39.982365",
+  "channelType": "00"
+  },
+  "appId": "12345",
+  "appName": "测试系统",
+  "userId": "yangpan",
+  "t": 1571643169865,
+  "href": "localhost%3A9090%2F",
+  "ref": "http%3A%2F%2Flocalhost%3A9090%2F",
+  "sessionId": "622d945d-b334-46f5-9f35-af04cf0c28ba",
+  "deviceId": "bp_did=db12aa70-08a6-4088-8ed3-b87b9ed144c9"
+}
+```
+
+- 开启前端资源加载的json
+```
+{
+  "evt": "per",
+  "os": "Mac%20OS%20X_10.12.6",
+  "browser": "Chrome_77.0.3865.120",
+  "engine": "Webkit_537.36",
+  "lbs": {
+  "longtitude": "116.310807",
+  "latitude": "39.982365",
+  "channelType": "00"
+  },
+  "appId": "12345",
+  "appName": "测试系统",
+  "userId": "yangpan",
+  "t": 1571643169865,
+  "href": "localhost%3A9090%2F",
+  "ref": "http%3A%2F%2Flocalhost%3A9090%2F",
+  "sessionId": "622d945d-b334-46f5-9f35-af04cf0c28ba",
+  "deviceId": "bp_did=db12aa70-08a6-4088-8ed3-b87b9ed144c9",
+  "DNS查询耗时": "0ms",
+  "TCP链接耗时": "0ms",
+  "request请求耗时": "5ms",
+  "解析dom树耗时": "81ms",
+  "白屏时间": "7ms",
+  "domready时间(用户可操作时间节点)": "269ms",
+  "onload时间(总下载时间)": "350ms",
+  "js": [
+  {
+  "资源名称": "http://localhost:9090/main.min.js?5fce9eb9395a8a06f825",
+  "HTTP协议类型": "http/1.1",
+  "TCP链接耗时": "0ms",
+  "加载时间": "55ms"
+  }
+  ],
+  "css": [],
+  "image": [],
+  "video": [],
+  "fonts": [],
+  "others": [],
+  "pre": "性能监控"
+}
+```
+
+-  js报错的json
+```
+{
+  "evt": "error",
+  "os": "Mac%20OS%20X_10.12.6",
+  "browser": "Chrome_77.0.3865.120",
+  "engine": "Webkit_537.36",
+  "appId": "12345",
+  "appName": "测试系统",
+  "userId": "yangpan",
+  "t": 1571643169776,
+  "href": "localhost%3A9090%2F",
+  "ref": "http%3A%2F%2Flocalhost%3A9090%2F",
+  "sessionId": "622d945d-b334-46f5-9f35-af04cf0c28ba",
+  "deviceId": "bp_did=db12aa70-08a6-4088-8ed3-b87b9ed144c9",
+  "jsErr": {
+  "msg": "错误：Uncaught ReferenceError: Name is not defined",
+  "url": "URL：http://localhost:9090/",
+  "line": "行：42",
+  "col": "列：32",
+  "error": "错误对象：ReferenceError: Name is not defined"
+  },
+  "err": "前端错误上报"
+}
+```
+
+- 页面点击交互的json
+```
+{
+  "evt": "click",
+  "os": "Mac%20OS%20X_10.12.6",
+  "browser": "Chrome_77.0.3865.120",
+  "engine": "Webkit_537.36",
+  "lbs": {
+  "longtitude": "116.310807",
+  "latitude": "39.982365",
+  "channelType": "00"
+  },
+  "appId": "12345",
+  "appName": "测试系统",
+  "userId": "yangpan",
+  "t": 1571643171937,
+  "href": "localhost%3A9090%2F",
+  "ref": "http%3A%2F%2Flocalhost%3A9090%2F",
+  "sessionId": "622d945d-b334-46f5-9f35-af04cf0c28ba",
+  "deviceId": "bp_did=db12aa70-08a6-4088-8ed3-b87b9ed144c9",
+  "html": "无埋点测试",
+  "xPath": "/html/body/div[1]/div[2]/div[1]"
+}
+```
+
+- 每隔一个时间段上报的json(用来计算页面停留时长等)
+```
+{
+  "evt": "stay",
+  "os": "Mac%20OS%20X_10.12.6",
+  "browser": "Chrome_77.0.3865.120",
+  "engine": "Webkit_537.36",
+  "lbs": {
+  "longtitude": "116.310807",
+  "latitude": "39.982365",
+  "channelType": "00"
+  },
+  "appId": "12345",
+  "appName": "测试系统",
+  "userId": "yangpan",
+  "t": 1571643174917,
+  "href": "localhost%3A9090%2F",
+  "ref": "http%3A%2F%2Flocalhost%3A9090%2F",
+  "sessionId": "622d945d-b334-46f5-9f35-af04cf0c28ba",
+  "deviceId": "bp_did=db12aa70-08a6-4088-8ed3-b87b9ed144c9",
+  "time": 5000
+}
+```
+
 
 ## 开发目录结构说明
 ```
