@@ -32,9 +32,7 @@ In a browser:
 </script>
 ```
 
-or
-
-Using npm:
+or npm:
 ```shell
 $ npm i -g npm
 $ npm i uncle-burying-point
@@ -52,17 +50,13 @@ const buryingPoint = bp({
   tic: true
 });
 buryingPoint.external = {userId: 'yangpan', appId: '123', workflow: 'test'};
-```
-
-other
 // 开启白名单
 BP.whiteList.push('0.0.0.0');
 ```
+
 Note: add --save if you are using npm < 5.0.0
 
-
-## 使用说明
-
+## 说明
 - 初始化参数
 
 ```
@@ -92,8 +86,7 @@ Note: add --save if you are using npm < 5.0.0
 │   └─utils.js # 工具函数
 ```
 
-![avatar](./src/images/re.png)
-
+![avatar](https://raw.githubusercontent.com/unclepan/uncle-burying-point/dev/src/images/re.png)
 
 ## 开发CLI命令(npm scripts)
 | 命令            | 作用&效果          |
