@@ -1,5 +1,6 @@
 import con from './config';
 import ajax from './ajax';
+import pako from 'pako';
 
 class Utils {
     constructor(){
@@ -75,7 +76,7 @@ class Utils {
         ajax.ajax({
             url,
             type:'post',
-            data: {data: JSON.stringify(data)},
+            data: {data: this.zip(JSON.stringify(data))},
             dataType: 'json',
             timeout:10000,
             contentType: "application/json",
@@ -222,6 +223,26 @@ class Utils {
         }      
         return c;   
     }
+    /**
+     * 解压
+     * @param b64Data 
+     */
+    unzip(b64Data){
+        let strData   = atob(b64Data);
+        const charData  = strData.split('').map(function(x){return x.charCodeAt(0);});
+        const binData   = new Uint8Array(charData);
+        const data = pako.inflate(binData);
+        strData = String.fromCharCode.apply(null, new Uint16Array(data));
+        return decodeURIComponent(strData);
+    }
+    /**
+     * 压缩
+     * @param str 
+     */
+    zip(str){
+        const binaryString = pako.gzip(encodeURIComponent(str), { to: 'string' })
+        return btoa(binaryString);
+    }
 
     isObject(what) {
         return typeof what === 'object' && what !== null;
@@ -283,6 +304,7 @@ class Utils {
         } 
         return 'other'
     }
+    
 }
 
 export default new Utils();
