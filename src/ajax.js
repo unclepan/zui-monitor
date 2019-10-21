@@ -49,7 +49,7 @@ class Ajax {
         xhr=new XMLHttpRequest();
     }else if(window.ActiveObject){ // 兼容IE6以下版本
         // eslint-disable-next-line no-undef
-        xhr=new ActiveXobject('Microsoft.XMLHTTP');
+        xhr = new ActiveXobject('Microsoft.XMLHTTP');
     }
 
     //启动并发送一个请求
@@ -60,7 +60,7 @@ class Ajax {
         xhr.open("post",options.url,true);
         //设置表单提交时的内容类型
         //Content-type数据请求的格式
-        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send(params);
     }
     //设置有效时间

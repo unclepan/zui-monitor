@@ -19,12 +19,14 @@
 
     <script>
         var buryingPoint = BuryingPoint({
-            per: false,
+            per: true,
             jsErr: false,
             appId: '12345',
             appName: '测试系统',
             level: '1',
-            tic: true
+            tic: true,
+            baseUrl: 'http://10.200.82.24:80/workflow/fronted/ui/log/upload',
+            compress: false
         });
         buryingPoint.external = {userId: 'yangpan', appId:'123'};
         // console.log(buryingPoint.external);

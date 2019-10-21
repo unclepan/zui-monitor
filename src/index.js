@@ -15,11 +15,9 @@ export default function BuryingPoint(opt) {
     * @param jsErr js错误监控
     * @param appId 业务系统ID(*必填)
     * @param appName 业务系统NAME(*必填)
-    * @param encrypt 上报的信息是否加密(默认加密)
-    * @param compress 上报的信息是否压缩(默认压缩)
+    * @param compress 上报的信息是否压缩(默认不压缩)
     * @param baseUrl 监控信息接收的地址
     * @param stayTime 发送监控信息的时间间隔
-
     */
     const options = Object.assign({//合并参数
         bury: 3,
@@ -29,8 +27,7 @@ export default function BuryingPoint(opt) {
         jsErr: false,
         appId: '',
         appName: '',
-        encrypt: true,
-        compress: true,
+        compress: false,
         baseUrl: con.win.location.href,
         stayTime: 5000
     }, opt);
@@ -48,6 +45,7 @@ export default function BuryingPoint(opt) {
     (function(){
         con.stayTime = options.stayTime;
         con.baseUrl = options.baseUrl;
+        con.compress = options.compress;
         EP.appId = options.appId; 
         EP.appName = options.appName; 
     })();
@@ -79,7 +77,7 @@ export default function BuryingPoint(opt) {
                     if (target.nodeName.toLowerCase() === 'a') {
                         data.href = encodeURIComponent(target.href);
                     }
-                    const lev = options.level === data.level || !data.level;
+                    const lev = options.level === data.level || !data.level; // 判断dom上的监控级别是否和初始化设置的一样
                     if (data.evt && lev) {
                         let event = data.evt;
                         delete data.evt;
