@@ -37,7 +37,6 @@ or npm:
 $ npm i -g npm
 $ npm i uncle-burying-point
 ```
-
 ```html
 import bp from 'uncle-burying-point';
 
@@ -95,7 +94,7 @@ Note: add --save if you are using npm < 5.0.0
 }
 ```
 
-- 开启前端资源加载的json
+- 开启前端资源加载性能的json
 ```
 {
   "evt": "per",
@@ -139,7 +138,7 @@ Note: add --save if you are using npm < 5.0.0
 }
 ```
 
--  js报错的json
+-  监控到js报错的json
 ```
 {
   "evt": "error",
