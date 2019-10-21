@@ -233,31 +233,23 @@ class Utils {
      * 解压
      * @param b64Data 
      */
-    // unzip(b64Data){
-    //     let strData   = atob(b64Data);
-    //     const charData  = strData.split('').map(function(x){
-    //         return x.charCodeAt(0);
-    //     });
-    //     const binData   = new Uint8Array(charData);
-    //     const data = pako.inflate(binData);
-    //     strData = String.fromCharCode.apply(null, new Uint16Array(data));
-    //     return decodeURIComponent(strData);
-    // }
-    unzip(str){
-        const binaryString = pako.ungzip(str, { to: 'string' })
-        return binaryString;
+    unzip(b64Data){
+        let strData   = atob(b64Data);
+        const charData  = strData.split('').map(function(x){
+            return x.charCodeAt(0);
+        });
+        const binData   = new Uint8Array(charData);
+        const data = pako.inflate(binData);
+        strData = String.fromCharCode.apply(null, new Uint16Array(data));
+        return strData;
     }
     /**
      * 压缩
      * @param str 
      */
-    // zip(str){
-    //     const binaryString = pako.gzip(encodeURIComponent(str), { to: 'string' })
-    //     return btoa(binaryString);
-    // }
     zip(str){
         const binaryString = pako.gzip(str, { to: 'string' })
-        return binaryString;
+        return btoa(binaryString);
     }
 
     isObject(what) {

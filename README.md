@@ -11,12 +11,28 @@
 $ npm install
 $ npm run dev
 ```
-## Installation
+## 安装
 
 In a browser:
 ```html
 <script src="main.min.js"></script>
+
+<script>
+  var buryingPoint = BuryingPoint({
+      per: true,
+      jsErr: false,
+      appId: '12345',
+      appName: '测试系统',
+      level: '1',
+      tic: true,
+      baseUrl: 'http://10.200.82.24:80/workflow/fronted/ui/log/upload',
+      compress: false
+  });
+  buryingPoint.external = {userId: 'yangpan', appId:'123'};
+</script>
 ```
+
+or
 
 Using npm:
 ```shell
@@ -24,21 +40,21 @@ $ npm i -g npm
 $ npm i uncle-burying-point
 ```
 
-
 ```html
-var buryingPoint = BuryingPoint({
-    per: false,
-    jsErr: false,
-    appId: '12345',
-    appName: '测试系统',
-    level: '1',
-    tic: true
+import bp from 'uncle-burying-point';
+
+const buryingPoint = bp({
+  per: true,
+  jsErr: true,
+  appId: '12345',
+  appName: '测试系统',
+  level: '1',
+  tic: true
 });
+buryingPoint.external = {userId: 'yangpan', appId: '123', workflow: 'test'};
+```
 
-// 实例化后追加额外参数
-buryingPoint.external = {userId: 'yangpan', appId:'123'};
-console.log(buryingPoint.external);
-
+other
 // 开启白名单
 BP.whiteList.push('0.0.0.0');
 ```
@@ -51,19 +67,18 @@ Note: add --save if you are using npm < 5.0.0
 
 ```
 * @param bury 监控模式（无埋点=>1，声明式埋点=>2，两种都支持=>3）
-* @param level 监控级别（默认为1）
-* @param tic 是否启动定时上报
+* @param level 监控级别（默认为1， 只有当dom上定义的level属性不传或者与全局初始化传入的一致，此节点才会绑定监听）
+* @param tic 是否启动定时上报（否则打开页面只上报一次，只收集pv）
 * @param per 性能监控，默认不监控
 * @param jsErr js错误监控
 * @param appId 业务系统ID(*必填)
 * @param appName 业务系统NAME(*必填)
-* @param encrypt 上报的信息是否加密(默认加密)
-* @param compress 上报的信息是否压缩(默认压缩)
-* @param baseUrl 监控信息接收的地址
-* @param stayTime 发送监控信息的时间间隔
+* @param compress 上报的信息是否gzip压缩(默认不压缩)
+* @param baseUrl 监控信息接收的后端接口地址
+* @param stayTime 发送监控信息的时间间隔（只在tic为true才有效）
 ```
 
-## 目录结构说明
+## 开发目录结构说明
 ```
 ├─src # 源码开发包
 │   ├─ajax.js # 简版ajax请求
@@ -77,8 +92,10 @@ Note: add --save if you are using npm < 5.0.0
 │   └─utils.js # 工具函数
 ```
 
+![avatar](./src/images/re.png)
 
-## CLI命令(npm scripts)
+
+## 开发CLI命令(npm scripts)
 | 命令            | 作用&效果          |
 | --------------- | ------------- |
 | npm run build   | 编译出一份生产环境的代码 |
