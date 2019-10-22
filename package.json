@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/unclepan/uncle-burying-point.git"
+    "url": "https://github.com/unclepan/zui-monitor/tree/dev"
   },
   "scripts": {
     "dev": "webpack-dev-server --config ./webpack.config.js --mode development",
