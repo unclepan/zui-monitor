@@ -1,4 +1,4 @@
-# uncle-burying-point
+# zui-monitor
 
 ## 项目简介
 - 前端监控方案
@@ -15,10 +15,10 @@ $ npm run dev
 
 In a browser:
 ```html
-<script src="main.min.js"></script>
+<script src="zui-monitor-main.min.js"></script>
 
 <script>
-  var buryingPoint = BuryingPoint({
+  var buryingPoint = ZuiMonitor({
       per: true,
       jsErr: false,
       appId: '12345',
@@ -28,7 +28,19 @@ In a browser:
       baseUrl: 'http://10.200.82.24:80/workflow/fronted/ui/log/upload',
       compress: false
   });
+  // 追加外部参数
   buryingPoint.external = {userId: 'yangpan', appId:'123'};
+  // 或者追加用户信息
+  bp.user = {
+      yagpan: 1234,
+      lihai: '瞎写的',
+      userId: '12324',
+      userOrg: 14,
+      userExt: {
+          a: 1111,
+          b: 2222
+      }
+  };
 </script>
 ```
 
@@ -48,9 +60,11 @@ const buryingPoint = bp({
   level: '1',
   tic: true
 });
+// 追加外部参数
 buryingPoint.external = {userId: 'yangpan', appId: '123', workflow: 'test'};
+
 // 开启白名单
-BP.whiteList.push('0.0.0.0');
+buryingPoint.whiteList.push('0.0.0.0');
 ```
 
 Note: add --save if you are using npm < 5.0.0
@@ -59,15 +73,14 @@ Note: add --save if you are using npm < 5.0.0
 - 初始化参数
 ```
 * @param bury 监控模式（无埋点=>1，声明式埋点=>2，两种都支持=>3）
-* @param level 监控级别（默认为1， 只有当dom上定义的level属性不传或者与全局初始化传入的一致，此节点才会绑定监听）
-* @param tic 是否启动定时上报（否则打开页面只上报一次，只收集pv）
+* @param level 监控级别（默认为1）
 * @param per 性能监控，默认不监控
 * @param jsErr js错误监控
 * @param appId 业务系统ID(*必填)
 * @param appName 业务系统NAME(*必填)
-* @param compress 上报的信息是否gzip压缩(默认不压缩)
-* @param baseUrl 监控信息接收的后端接口地址
-* @param stayTime 发送监控信息的时间间隔（只在tic为true才有效）
+* @param compress 上报的信息是否压缩(默认压缩，生产环境必须设置为true)
+* @param baseUrl 监控信息接收的地址
+* @param sendTimeGap 发送监控信息的时间间隔大于5000毫秒便启动定时上报
 ```
 
 上报的五种json格式
@@ -243,5 +256,5 @@ Note: add --save if you are using npm < 5.0.0
 ## 注意事项
 本项目基于`webpack4`版本。
 
-## 0.0.17
-版本号为0.0.17
+## 0.0.23
+版本号为0.0.23

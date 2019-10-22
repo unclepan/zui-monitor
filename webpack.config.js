@@ -9,9 +9,9 @@ module.exports = {
     entry: ['./src/index.js'],
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name].min.js', // 表示打包出来文件名叫什么
+      filename: 'zui-monitor-[name].min.js', // 表示打包出来文件名叫什么
       libraryExport: "default", // 表示打包出来的变量直接对外暴露 default 属性，否则我们调用的时候需要 new BuryingPoint.default()，这不是我们希望的调用方式
-      library: 'BuryingPoint', // 表示对外暴露的变量叫什么
+      library: 'ZuiMonitor', // 表示对外暴露的变量叫什么
       libraryTarget: 'umd' //'this', 'global', 'window'
     },
     module: {

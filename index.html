@@ -18,7 +18,7 @@
     </div>
 
     <script>
-        var buryingPoint = BuryingPoint({
+        var bp = ZuiMonitor({
             per: true,
             jsErr: true,
             appId: '12345',
@@ -26,16 +26,27 @@
             level: '1',
             tic: true,
             baseUrl: 'http://10.200.82.24:80/workflow/fronted/ui/log/upload',
-            compress: false
+            sendTimeGap: 4000
         });
-        buryingPoint.external = {userId: 'yangpan', appId:'123'};
-        // console.log(buryingPoint.external);
-        // buryingPoint.page = 'index';
+        bp.external = {userId: 'yangpan', appId:'123'};
+        
+        bp.user = {
+            yagpan: 1234,
+            lihai: '瞎写的',
+            userId: '12324',
+            userOrg: 14,
+            userExt: {
+                a: 1111,
+                b: 222
+            }
+        };
+        // console.log(bp.external);
+        // bp.page = 'index';
         // 开启白名单
         // BP.whiteList.push('0.0.0.0');
         // BP.send('script');
     </script>
-    <script>
+    <!-- <script>
         // 前端错误监控测试
         function makeError () {
             var name = "geoff"
@@ -43,6 +54,6 @@
             console.log(msg)
         }
         makeError()
-    </script>
+    </script> -->
 </body>
 </html>

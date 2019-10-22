@@ -74,12 +74,16 @@ class BP {
             con.queueData = []; // 清空队列数据
         }  
     }
-
+    // 设置外部参数
     set external(value) {
         EP.setUp(value);
     }
     get external () {
         return EP;
+    }
+    // 设置用户信息
+    set user(value) {
+        EP.setUp(value);
     }
     // 设置白名单
     set whiteList (value) { 

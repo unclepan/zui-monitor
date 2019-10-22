@@ -86,12 +86,12 @@ class Utils {
             dataType: 'json',
             timeout:10000,
             contentType: "application/json",
-            success: function(data){
-              console.log(`上报成功${data}`);
+            success: function(){
+                // console.log(`上报成功${data}`);
             },
             //异常处理
-            error:function(e){
-              console.error(`上报失败${e}`);
+            error:function(){
+                // console.error(`上报失败${e}`);
             }
         })
     }

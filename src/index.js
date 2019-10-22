@@ -10,40 +10,37 @@ export default function BuryingPoint(opt) {
     * 初始化参数
     * @param bury 监控模式（无埋点=>1，声明式埋点=>2，两种都支持=>3）
     * @param level 监控级别（默认为1）
-    * @param tic 是否启动定时上报
     * @param per 性能监控，默认不监控
     * @param jsErr js错误监控
     * @param appId 业务系统ID(*必填)
     * @param appName 业务系统NAME(*必填)
-    * @param compress 上报的信息是否压缩(默认不压缩)
+    * @param compress 上报的信息是否压缩(默认压缩，生产环境必须设置为true)
     * @param baseUrl 监控信息接收的地址
-    * @param stayTime 发送监控信息的时间间隔
+    * @param sendTimeGap 发送监控信息的时间间隔大于5000毫秒便启动定时上报
     */
     const options = Object.assign({//合并参数
         bury: 3,
         level: '1',
-        tic: true, 
         per: false,
         jsErr: false,
         appId: '',
         appName: '',
-        compress: false,
+        compress: true,
         baseUrl: con.win.location.href,
-        stayTime: 5000
+        sendTimeGap: 5000
     }, opt);
 
     if(options.appId === '' || options.appName === ''){
         console.error('埋点启动失败，请正确配置appId或者appName！');
         return {};
     }
-    if(options.stayTime < 5000 || typeof options.stayTime !== 'number'){
-        console.error('埋点启动失败，请正确配置stayTime！stayTime不得小于5000且必须是数字类型');
-        return {};
+    if(options.sendTimeGap < 5000 || typeof options.sendTimeGap !== 'number'){
+        console.log('启动定时上报失败，请正确配置sendTimeGap！sendTimeGap不得小于5000且必须是数字类型');
     }
 
     // 初始化配置参数
     (function(){
-        con.stayTime = options.stayTime;
+        con.stayTime = options.sendTimeGap;
         con.baseUrl = options.baseUrl;
         con.compress = options.compress;
         EP.appId = options.appId; 
@@ -134,7 +131,7 @@ export default function BuryingPoint(opt) {
             console.error('请正确配置bury参数，无埋点=>1，声明式埋点=>2，两种都支持=>3');
         }
         // 事件轮询系统
-        if(options.tic){
+        if(options.sendTimeGap >= 5000){
             // 启动ticker（也就是定时上报）
             ticker.start();
             ticker.register(calStayTime);

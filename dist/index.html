@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-<script type="text/javascript" src="main.min.js?b84d3e93dbc5bfeb19e9"></script></head>
+<script type="text/javascript" src="zui-monitor-main.min.js?3e1bf9aaa7703f03fdc7"></script></head>
 <body>
     <div>
         <div>
@@ -18,7 +18,7 @@
     </div>
 
     <script>
-        var buryingPoint = BuryingPoint({
+        var bp = ZuiMonitor({
             per: true,
             jsErr: true,
             appId: '12345',
@@ -26,11 +26,22 @@
             level: '1',
             tic: true,
             baseUrl: 'http://10.200.82.24:80/workflow/fronted/ui/log/upload',
-            compress: false
+            sendTimeGap: 4000
         });
-        buryingPoint.external = {userId: 'yangpan', appId:'123'};
-        // console.log(buryingPoint.external);
-        // buryingPoint.page = 'index';
+        bp.external = {userId: 'yangpan', appId:'123'};
+        
+        bp.user = {
+            yagpan: 1234,
+            lihai: '瞎写的',
+            userId: '12324',
+            userOrg: 14,
+            userExt: {
+                a: 1111,
+                b: 222
+            }
+        };
+        // console.log(bp.external);
+        // bp.page = 'index';
         // 开启白名单
         // BP.whiteList.push('0.0.0.0');
         // BP.send('script');

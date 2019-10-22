@@ -18,7 +18,7 @@ class Con {
     this.uaOutput = new UA(this.ua);// 解析ua
     this.totalTime = 0;
     this.stayTime = 10000; // 触发间隔5秒
-    this.compress = false;
+    this.compress = true;
   }
   //静态方法，单例
   static getInstance(cookieName = 'bp_did') {
