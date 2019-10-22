@@ -148,10 +148,7 @@ export default function BuryingPoint(opt) {
         // 监测一次性能监控
         if(options.per){  
             const Per = new PerConstructor();
-            utils.addEvent(con.win, 'beforeunload', function () {
-                Per.start('pushQueueData');   
-                BP.send();
-            });
+            Per.start('pushQueueData');
         }  
         // 上报pv，打开页面执行，只执行一次
         BP.sendPV();
