@@ -47,10 +47,10 @@ In a browser:
 or npm:
 ```shell
 $ npm i -g npm
-$ npm i uncle-burying-point
+$ npm i zui-monitor
 ```
 ```html
-import bp from 'uncle-burying-point';
+import bp from 'zui-monitor';
 
 const buryingPoint = bp({
   per: true,
@@ -241,7 +241,7 @@ Note: add --save if you are using npm < 5.0.0
 │   └─utils.js # 工具函数
 ```
 
-![avatar](https://raw.githubusercontent.com/unclepan/uncle-burying-point/dev/src/images/re.png)
+![avatar](https://raw.githubusercontent.com/unclepan/zui-monitor/dev/src/images/re.png)
 
 ## 开发CLI命令(npm scripts)
 | 命令            | 作用&效果          |
