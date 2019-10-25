@@ -2,10 +2,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const debug = process.env.NODE_ENV !== 'production';
+const TerserPlugin = require('terser-webpack-plugin');
+// const debug = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-    devtool: debug ? 'source-map' : 'cheap-module-eval-source-map',
+    // devtool: debug ? 'source-map' : 'cheap-module-eval-source-map',
     entry: ['./src/index.js'],
     output: {
       path: path.resolve(__dirname, 'dist'),
@@ -21,6 +22,14 @@ module.exports = {
             loader: 'babel-loader'
         }]
     },
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          sourceMap: false,
+        }),
+      ],
+    },
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
@@ -28,7 +37,7 @@ module.exports = {
             title: 'BuringPoint测试',
             hash: true,
             inject: 'head'
-      })
+      }),
     ],
     devServer: {
         contentBase: path.join(__dirname, './dist'),
