@@ -251,10 +251,10 @@ Note: add --save if you are using npm < 5.0.0
 | npm run stats   | 在根目录生成stats.json得到项目依赖的统计信息，可视化工具：http://webpack.github.io/analyse/ 或者 https://chrisbateman.github.io/webpack-visualizer/ 或者 https://alexkuz.github.io/webpack-chart/ 或者 自行谷歌。当你优化包输出的大小，这些工具是非常重要的。官方工具有很多的功能，但即使是简单的可视化也可以揭示问题点。|
 
 ## 更新日志
-暂无更新
+2019-10-25 1:增加input元素type属性为submit的值获取。2:元素获取值做trim处理
 
 ## 注意事项
 本项目基于`webpack4`版本。
 
-## 0.0.24
-版本号为0.0.26
+## 当前版本
+版本号为0.0.27

@@ -78,8 +78,8 @@ export default function BuryingPoint(opt) {
                     if (data.evt && lev) {
                         let event = data.evt;
                         delete data.evt;
-                        let html = target.innerHTML;
-                        BP.pushQueueData(event, {html, ...data}, target);
+                        let html = target.innerHTML || target.value; // input元素取value
+                        BP.pushQueueData(event, {html: html.trim(), ...data}, target);
                     }
                     break;
                 }
@@ -87,8 +87,8 @@ export default function BuryingPoint(opt) {
             }
             if(target === document && options.bury === 3){ // 没有绑定属性
                 let t =  evt.srcElement || evt.target;
-                let html = t.innerHTML;
-                BP.pushQueueData('click', { html }, t);
+                let html = t.innerHTML || t.value; // input元素取value;
+                BP.pushQueueData('click', { html: html.trim() }, t);
             }
         });
     };
