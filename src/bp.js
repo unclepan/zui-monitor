@@ -34,7 +34,8 @@ class BP {
             href: encodeURIComponent(utils.stringSplice(source, 'href', '?', '')),
             ref: encodeURIComponent(utils.stringSplice(con.doc.referrer, 'ref', '?', '')),
             sessionId: `${this.sessionId}`,
-            deviceId: this.deviceId
+            deviceId: this.deviceId,
+            title: document.title
         };
     }
     // 上报pv

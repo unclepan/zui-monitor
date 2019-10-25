@@ -163,7 +163,7 @@ export default function BuryingPoint(opt) {
         console.log('埋点数据即将开始上报数据');
         setTimeout(()=>{
             start();
-        }, 0); 
+        }, 20); 
     });
     return BP;
 }
