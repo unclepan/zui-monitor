@@ -312,7 +312,9 @@ class Utils {
         } 
         return 'other'
     }
-    
+    trim(str){ //删除左右两端的空格
+        return str.replace(/(^\s*)|(\s*$)/g, "");
+    }
 }
 
 export default new Utils();

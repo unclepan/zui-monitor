@@ -79,7 +79,7 @@ export default function BuryingPoint(opt) {
                         let event = data.evt;
                         delete data.evt;
                         let html = target.innerHTML || target.value; // input元素取value
-                        BP.pushQueueData(event, {html: html.trim(), ...data}, target);
+                        BP.pushQueueData(event, {html: utils.trim(`${html}`), ...data}, target);
                     }
                     break;
                 }
@@ -88,7 +88,7 @@ export default function BuryingPoint(opt) {
             if(target === document && options.bury === 3){ // 没有绑定属性
                 let t =  evt.srcElement || evt.target;
                 let html = t.innerHTML || t.value; // input元素取value;
-                BP.pushQueueData('click', { html: html.trim() }, t);
+                BP.pushQueueData('click', { html: utils.trim(`${html}`) }, t);
             }
         });
     };

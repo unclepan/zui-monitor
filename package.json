@@ -1,6 +1,6 @@
 {
   "name": "zui-monitor",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "description": "前端数据埋点工具",
   "main": "./dist/zui-monitor-main.min.js",
   "jsnext:main": "src/index.js",
