@@ -24,7 +24,6 @@ In a browser:
       appId: '12345',
       appName: '测试系统',
       level: '1',
-      tic: true,
       baseUrl: 'http://10.200.82.24:80/workflow/fronted/ui/log/upload',
       compress: false
   });
@@ -252,9 +251,10 @@ Note: add --save if you are using npm < 5.0.0
 
 ## 更新日志
 2019-10-25 1:增加input元素type属性为submit的值获取。2:元素获取值做trim处理。 3:增加页面title获取
+2019-12-11 1:增加初始化log。2:设备信息获取兼容云办公ios封装的浏览器
 
 ## 注意事项
 本项目基于`webpack4`版本。
 
 ## 当前版本
-版本号为0.0.29
+版本号为0.0.31

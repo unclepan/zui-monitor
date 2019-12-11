@@ -18,6 +18,7 @@ export default function BuryingPoint(opt) {
     * @param baseUrl 监控信息接收的地址
     * @param sendTimeGap 发送监控信息的时间间隔大于5000毫秒便启动定时上报
     */
+    console.log('============ Monitor 初始化开始 ============ ');
     const options = Object.assign({//合并参数
         bury: 3,
         level: '1',
@@ -47,6 +48,10 @@ export default function BuryingPoint(opt) {
         EP.appName = options.appName; 
     })();
 
+    for (let i in options){
+        console.log(`${i}：${options[i]|| '未设置'}`); 
+    }
+    
     // 前端错误上报
     if(options.jsErr) {
         window.onerror = function(msg, url, line, col, error) {
@@ -160,7 +165,7 @@ export default function BuryingPoint(opt) {
             console.error('域名不在白名单内', '@zui-monitor');
             return;
         }
-        console.log('埋点数据即将开始上报数据');
+        console.log('============ Monitor 初始化成功 ============ ');
         setTimeout(()=>{
             start();
         }, 20); 
