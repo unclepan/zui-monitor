@@ -10,7 +10,7 @@
     <div>
         <div>
             <div data-moni='{evt:click, test: 111}'>点击我会上报一条数据</div>
-            <div data-moni='{evt:click, test: "监控级别测试", level: 1, type: "哈哈哈哈"}'>监控级别测试</div>
+            <div data-moni='{evt:click, test: "监控级别测试", level: 1, type: "测试"}'>监控级别测试</div>
             <input type="submit" value="input 按钮测试">
         </div>
         <div>
@@ -28,7 +28,8 @@
             tic: true,
             baseUrl: 'http://10.200.82.24:80/workflow/fronted/ui/log/upload',
             sendTimeGap: 6000,
-            compress: false
+            compress: false,
+            stay: false
         });
         bp.external = {userId: 'yangpan', appId:'123'};
         

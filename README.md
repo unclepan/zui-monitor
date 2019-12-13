@@ -80,7 +80,8 @@ Note: add --save if you are using npm < 5.0.0
 * @param compress 上报的信息是否压缩(默认压缩，生产环境必须设置为true)
 * @param baseUrl 监控信息接收的地址
 * @param sendTimeGap 发送监控信息的时间间隔大于5000毫秒便启动定时上报
-```
+* @param stay 是否上报页面停留数据
+  ```
 
 上报的五种json格式
 - 页面统计pv的json
@@ -250,11 +251,14 @@ Note: add --save if you are using npm < 5.0.0
 | npm run stats   | 在根目录生成stats.json得到项目依赖的统计信息，可视化工具：http://webpack.github.io/analyse/ 或者 https://chrisbateman.github.io/webpack-visualizer/ 或者 https://alexkuz.github.io/webpack-chart/ 或者 自行谷歌。当你优化包输出的大小，这些工具是非常重要的。官方工具有很多的功能，但即使是简单的可视化也可以揭示问题点。|
 
 ## 更新日志
-2019-10-25 1:增加input元素type属性为submit的值获取。2:元素获取值做trim处理。 3:增加页面title获取
-2019-12-11 1:增加初始化log。2:设备信息获取兼容云办公ios封装的浏览器
+```
+2019-10-25 1: 增加input元素type属性为submit的值获取。2: 元素获取值做trim处理。 3: 增加页面title获取
+2019-12-11 1: 增加初始化log。2: 设备信息获取兼容云办公ios封装的浏览器
+2019-12-13 1: 增加初始化关键参数stay 当设置为false时，只会收集页面行为的数据，如用户与页面长时间不进行交互，不会上报数据。 但是当需要统计页面停留时常时建议打开。
+```
 
 ## 注意事项
 本项目基于`webpack4`版本。
 
 ## 当前版本
-版本号为0.0.31
+版本号为0.0.32

@@ -17,6 +17,7 @@ export default function BuryingPoint(opt) {
     * @param compress 上报的信息是否压缩(默认压缩，生产环境必须设置为true)
     * @param baseUrl 监控信息接收的地址
     * @param sendTimeGap 发送监控信息的时间间隔大于5000毫秒便启动定时上报
+    * @param stay 是否上报页面停留数据
     */
     console.log('============ Monitor 初始化开始 ============ ');
     const options = Object.assign({//合并参数
@@ -28,7 +29,8 @@ export default function BuryingPoint(opt) {
         appName: '',
         compress: true,
         baseUrl: con.win.location.href,
-        sendTimeGap: 5000
+        sendTimeGap: 5000,
+        stay: true
     }, opt);
 
     if(options.appId === '' || options.appName === ''){
@@ -117,7 +119,9 @@ export default function BuryingPoint(opt) {
     const calStayTime = function (dt) {
         con.totalTime += dt;
         if(con.totalTime >= con.stayTime) {
-            BP.pushQueueData('stay', { time: con.stayTime });
+            if(options.stay) {
+                BP.pushQueueData('stay', { time: con.stayTime });
+            }
             BP.send();
             con.totalTime -= con.stayTime;
         }

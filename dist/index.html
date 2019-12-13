@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-<script type="text/javascript" src="zui-monitor-main.min.js?639c64bec993af56188e"></script></head>
+<script type="text/javascript" src="zui-monitor-main.min.js?0237f7f4f2aef95dbfcd"></script></head>
 <body>
     <div>
         <div>
             <div data-moni='{evt:click, test: 111}'>点击我会上报一条数据</div>
-            <div data-moni='{evt:click, test: "监控级别测试", level: 1, type: "哈哈哈哈"}'>监控级别测试</div>
+            <div data-moni='{evt:click, test: "监控级别测试", level: 1, type: "测试"}'>监控级别测试</div>
             <input type="submit" value="input 按钮测试">
         </div>
         <div>
@@ -28,7 +28,8 @@
             tic: true,
             baseUrl: 'http://10.200.82.24:80/workflow/fronted/ui/log/upload',
             sendTimeGap: 6000,
-            compress: false
+            compress: false,
+            stay: false
         });
         bp.external = {userId: 'yangpan', appId:'123'};
         
