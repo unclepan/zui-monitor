@@ -9,6 +9,7 @@ class BP {
     constructor(){
         this.sessionId = this._sessionId();
         this.deviceId = this._deviceId();
+        this.start = null;
     }
     // 会话id，刷新页面会更新
     _sessionId () {

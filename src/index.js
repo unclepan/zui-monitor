@@ -18,6 +18,7 @@ export default function BuryingPoint(opt) {
     * @param baseUrl 监控信息接收的地址
     * @param sendTimeGap 发送监控信息的时间间隔大于5000毫秒便启动定时上报
     * @param stay 是否上报页面停留数据
+    * @param manual 手动调用方法
     */
     console.log('============ Monitor 初始化开始 ============ ');
     const options = Object.assign({//合并参数
@@ -30,7 +31,8 @@ export default function BuryingPoint(opt) {
         compress: true,
         baseUrl: con.win.location.href,
         sendTimeGap: 5000,
-        stay: true
+        stay: false,
+        manual: false
     }, opt);
 
     if(options.appId === '' || options.appName === ''){
@@ -163,8 +165,8 @@ export default function BuryingPoint(opt) {
         BP.sendPV();
     };
     
-    // 侦听load事件，准备启动数据上报
-    utils.addEvent(con.win, 'load', function () {
+    
+    function winStart () {
         if (!utils.checkWhiteList()) {
             console.error('域名不在白名单内', '@zui-monitor');
             return;
@@ -173,6 +175,13 @@ export default function BuryingPoint(opt) {
         setTimeout(()=>{
             start();
         }, 20); 
-    });
+    }
+    if(options.manual){
+        // 将start绑定到BP上，兼容老项目
+        BP.start = winStart;
+    } else {
+        // 侦听load事件，准备启动数据上报
+        utils.addEvent(con.win, 'load', winStart);
+    }
     return BP;
 }
