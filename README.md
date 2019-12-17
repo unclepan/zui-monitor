@@ -263,4 +263,4 @@ Note: add --save if you are using npm < 5.0.0
 本项目基于`webpack4`版本。
 
 ## 当前版本
-版本号为0.0.32
+版本号为0.0.33
