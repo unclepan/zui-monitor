@@ -82,7 +82,7 @@ class Utils {
         ajax.ajax({
             url,
             type:'post',
-            data: {data: zipData},
+            data: {data: zipData, compress: con.compress},
             dataType: 'json',
             timeout:10000,
             contentType: "application/json",
