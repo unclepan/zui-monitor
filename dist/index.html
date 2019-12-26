@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<script type="text/javascript" src="zui-monitor-main.min.js?1f6b4b5dccd2173b7139"></script></head>
+<body>
+    <div>
+        <div>
+            <div data-moni='{evt:click, test: 111}'>点击我会上报一条数据</div>
+            <div data-moni='{evt:click, test: "监控级别测试", level: 1, type: "测试"}'>监控级别测试</div>
+            <input type="submit" value="input 按钮测试">
+        </div>
+        <div>
+            <div>无埋点测试</div>
+        </div>
+    </div>
+
+    <script>
+        var bp = ZuiMonitor({
+            per: true,
+            jsErr: true,
+            appId: '12345',
+            appName: '测试系统',
+            level: '1',
+            tic: true,
+            baseUrl: 'http://10.200.82.24:80/workflow/fronted/ui/log/upload',
+            sendTimeGap: 6000,
+            compress: true,
+            stay: false
+        });
+        bp.external = {userId: 'yangpan', appId:'123'};
+        
+        bp.user = {
+            yagpan: 1234,
+            lihai: '瞎写的',
+            userId: '12324',
+            userOrg: 14,
+            userExt: {
+                a: 1111,
+                b: 222
+            }
+        };
+
+        setTimeout(function(){
+            console.log(bp.start)
+            bp.start();
+        }, 2000)
+        // console.log(bp.external);
+        // bp.page = 'index';
+        // 开启白名单
+        // BP.whiteList.push('0.0.0.0');
+        // BP.send('script');
+    </script>
+    <!-- <script>
+        // 前端错误监控测试
+        function makeError () {
+            var name = "geoff"
+            var msg = "Hi, " + Name
+            console.log(msg)
+        }
+        makeError()
+    </script> -->
+</body>
+</html>
