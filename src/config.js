@@ -1,4 +1,4 @@
-import UA from 'ua-device';// 使用ua-device库，build后体积增加近150KB，一个用于解析UA来得到用户终端信息的JS库
+import UA from 'ua-device';// 使用ua-device库，用于解析UA来得到用户终端信息的JS库 (build后体积增加近150KB)
 
 class Con {
   constructor(cookieName){

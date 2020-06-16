@@ -2,52 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-<script type="text/javascript" src="zui-monitor-main.min.js?1f6b4b5dccd2173b7139"></script></head>
+    <style>
+        .main{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .main div{
+            text-align: center;
+            width: 100%;
+            height: 30px;
+        }
+    </style>
+<script type="text/javascript" src="zui-monitor-main.min.js?f4186987c1cff6800174"></script></head>
 <body>
-    <div>
+    <div class="main">
+        <div data-moni='{evt:click, test: 111}'>点击我会上报一条数据</div>
+        <div data-moni='{evt:click, test: "监控级别测试", level: 1, type: "测试"}'>监控级别测试</div>
         <div>
-            <div data-moni='{evt:click, test: 111}'>点击我会上报一条数据</div>
-            <div data-moni='{evt:click, test: "监控级别测试", level: 1, type: "测试"}'>监控级别测试</div>
             <input type="submit" value="input 按钮测试">
         </div>
         <div>
             <div>无埋点测试</div>
         </div>
+        <div>
+            <div data-moni='{evt:click, test: 嵌套1}'>
+                嵌套1
+                <div data-moni='{evt:click, test: 嵌套2}'>
+                    嵌套2
+                    <div data-moni='{evt:click, test: 嵌套3}'>嵌套3</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        var bp = ZuiMonitor({
-            per: true,
+        var bp1 = ZuiMonitor({
+            per: false,
             jsErr: true,
             appId: '12345',
-            appName: '测试系统',
-            level: '1',
+            appName: '测试系统1',
+            level: 3,
+            bury: 3, 
             tic: true,
-            baseUrl: 'http://10.200.82.24:80/workflow/fronted/ui/log/upload',
+            baseUrl: 'http://121.42.13.92:3001/api/bp',
             sendTimeGap: 6000,
-            compress: true,
+            compress: false,
             stay: false
         });
-        bp.external = {userId: 'yangpan', appId:'123'};
+        // bp.external = {userId: 'yangpan', appId:'123'};
         
-        bp.user = {
-            yagpan: 1234,
-            lihai: '瞎写的',
-            userId: '12324',
-            userOrg: 14,
-            userExt: {
-                a: 1111,
-                b: 222
-            }
-        };
+        // bp.user = {
+        //     yangpan: 1234,
+        //     yp: '杨盼',
+        //     userId: '12324',
+        //     userOrg: 14,
+        //     userExt: {
+        //         a: 1111,
+        //         b: 222
+        //     }
+        // };
 
-        setTimeout(function(){
-            console.log(bp.start)
-            bp.start();
-        }, 2000)
+        // manual 要配置为true
+        // setTimeout(function(){
+        //     console.log(bp.start)
+        //     bp.start();
+        // }, 2000)
+
         // console.log(bp.external);
         // bp.page = 'index';
         // 开启白名单

@@ -49,7 +49,7 @@ class CI {
       try{
         return encodeURIComponent(o.name + '_' + o.version.original);
       }catch(e){
-        return encodeURIComponent(o.name + '_' + '你的浏览器太落后');
+        return encodeURIComponent(o.name + '_' + 'err');
       }
       
   }
@@ -58,7 +58,7 @@ class CI {
       try{
         return b.name + '_' + b.version.original;
       }catch(e){
-        return b.name + '_' + '你的浏览器太落后';
+        return b.name + '_' + 'err';
       }
       
   }
@@ -67,7 +67,7 @@ class CI {
       try{
         return e.name + '_' + e.version.original;
       }catch(e){
-        return e.name + '_' + '你的浏览器太落后';
+        return e.name + '_' + 'err';
       }
       
   }

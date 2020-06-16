@@ -46,7 +46,7 @@ class Ajax {
     var xhr;
     //考虑兼容性
     if(window.XMLHttpRequest){
-        xhr=new XMLHttpRequest();
+        xhr = new XMLHttpRequest();
     }else if(window.ActiveObject){ // 兼容IE6以下版本
         // eslint-disable-next-line no-undef
         xhr = new ActiveXobject('Microsoft.XMLHTTP');

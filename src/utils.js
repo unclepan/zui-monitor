@@ -75,10 +75,6 @@ class Utils {
             console.error('域名不在白名单内', '@burying-point');
             return;
         }
-        // if (con.page.length === 0) {
-        //     console.error('请配置有效的page参数', '@burying-point');
-        //     return;
-        // }
         ajax.ajax({
             url,
             type:'post',
@@ -154,7 +150,7 @@ class Utils {
     _addEvent () {
         if (con.doc.attachEvent) {
             return function (ele, type, func) {
-                ele.attachEvent('on' + type, func);
+                ele.attachEvent('on' + type, func); // IE
             };
         } else if (con.doc.addEventListener) {
             return function (ele, type, func) {

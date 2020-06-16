@@ -31,8 +31,8 @@ In a browser:
   buryingPoint.external = {userId: 'yangpan', appId:'123'};
   // 或者追加用户信息
   bp.user = {
-      yagpan: 1234,
-      lihai: '瞎写的',
+      yangpan: 1234,
+      yp: '杨盼',
       userId: '12324',
       userOrg: 14,
       userExt: {

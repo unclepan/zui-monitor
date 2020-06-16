@@ -83,7 +83,7 @@ export default function BuryingPoint(opt) {
                     if (target.nodeName.toLowerCase() === 'a') {
                         data.href = encodeURIComponent(target.href);
                     }
-                    const lev = options.level === data.level || !data.level; // 判断dom上的监控级别是否和初始化设置的一样
+                    const lev = (options.level === data.level )|| !data.level; // 判断dom上的监控级别是否和初始化设置的一样
                     if (data.evt && lev) {
                         let event = data.evt;
                         delete data.evt;
@@ -137,6 +137,7 @@ export default function BuryingPoint(opt) {
         if(options.bury === 1){
             noBuryingPoint();
         }else if(options.bury === 2 || options.bury === 3){
+            console.log(typeof options.bury )
             buryingPoint();
         } else {
             console.error('请正确配置bury参数，无埋点=>1，声明式埋点=>2，两种都支持=>3');
